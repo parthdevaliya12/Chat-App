@@ -1,4 +1,4 @@
-import { HiOutlineChevronLeft, HiOutlineInformationCircle, HiOutlineXMark } from 'react-icons/hi2';
+import { HiOutlineChevronLeft, HiOutlineInformationCircle, HiOutlineXMark, HiOutlineArrowPath } from 'react-icons/hi2';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { useChatStore } from '../../store/useChatStore';
@@ -6,7 +6,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import Avatar from '../common/Avatar';
 
 export default function ChatHeader() {
-  const { selectedUser, setSelectedUser } = useChatStore();
+  const { selectedUser, setSelectedUser, getMessages, isMessagesLoading } = useChatStore();
   const { onlineUsers } = useAuthStore();
   const isOnline = onlineUsers.includes(selectedUser?._id);
   const [showInfo, setShowInfo] = useState(false);
@@ -42,6 +42,14 @@ export default function ChatHeader() {
         </div>
       </div>
       <div className="flex items-center gap-2">
+        <button 
+          onClick={() => getMessages(selectedUser._id)}
+          disabled={isMessagesLoading}
+          className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all disabled:opacity-50"
+          title="Refresh Messages"
+        >
+          <HiOutlineArrowPath className={`w-5 h-5 ${isMessagesLoading ? 'animate-spin' : ''}`} />
+        </button>
         <button 
           onClick={() => setShowInfo(true)}
           className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all"

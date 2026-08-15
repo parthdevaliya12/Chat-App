@@ -1,5 +1,6 @@
-import { HiOutlineChevronLeft, HiOutlineVideoCamera, HiOutlinePhone } from 'react-icons/hi2';
-import { motion } from 'motion/react';
+import { HiOutlineChevronLeft, HiOutlineInformationCircle, HiOutlineXMark } from 'react-icons/hi2';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
 import { useChatStore } from '../../store/useChatStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import Avatar from '../common/Avatar';
@@ -8,8 +9,10 @@ export default function ChatHeader() {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers } = useAuthStore();
   const isOnline = onlineUsers.includes(selectedUser?._id);
+  const [showInfo, setShowInfo] = useState(false);
 
   return (
+    <>
     <motion.div 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -38,6 +41,54 @@ export default function ChatHeader() {
           </p>
         </div>
       </div>
+      <div className="flex items-center gap-2">
+        <button 
+          onClick={() => setShowInfo(true)}
+          className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all"
+          title="User Info"
+        >
+          <HiOutlineInformationCircle className="w-5 h-5" />
+        </button>
+      </div>
     </motion.div>
+
+    <AnimatePresence>
+      {showInfo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-midnight-950/60 backdrop-blur-sm">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="bg-white dark:bg-midnight-900 rounded-3xl p-6 w-full max-w-sm shadow-2xl relative border border-pearl-200 dark:border-midnight-700/50"
+          >
+            <button 
+              onClick={() => setShowInfo(false)}
+              className="absolute top-4 right-4 p-2 text-midnight-400 hover:text-rose-500 transition-colors bg-pearl-100 dark:bg-midnight-800 rounded-full"
+            >
+              <HiOutlineXMark className="w-5 h-5" />
+            </button>
+            
+            <div className="flex flex-col items-center text-center mt-4">
+              <div className="relative mb-4">
+                <Avatar src={selectedUser?.profilePic} name={selectedUser?.fullName} size="xl" showStatus={false} />
+                {isOnline && (
+                  <span className="absolute bottom-1 right-2 w-4 h-4 bg-emerald-500 border-4 border-white dark:border-midnight-900 rounded-full"></span>
+                )}
+              </div>
+              <h2 className="text-xl font-bold text-midnight-900 dark:text-pearl-50">{selectedUser?.fullName}</h2>
+              <p className="text-sm text-midnight-500 dark:text-midnight-400 mt-1">{selectedUser?.email}</p>
+              
+              <div className="w-full mt-6 p-4 bg-pearl-50 dark:bg-midnight-950/50 rounded-2xl text-left border border-pearl-200 dark:border-midnight-800">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-midnight-400 dark:text-midnight-500 mb-2">About</p>
+                <p className="text-sm text-midnight-700 dark:text-pearl-300">
+                  {selectedUser?.bio || "Hey there! I'm using LinkUp."}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }

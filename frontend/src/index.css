@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ═══════════════════════════════════════════════
+     Midnight & Pearl Palette — Ultra Premium V2
+     ═══════════════════════════════════════════════ */
+
+  /* Pearl — Soft, pristine light mode backgrounds */
+  --color-pearl-50: #FFFFFF;
+  --color-pearl-100: #F8FAFC;
+  --color-pearl-200: #F1F5F9;
+  --color-pearl-300: #E2E8F0;
+  --color-pearl-400: #CBD5E1;
+  --color-pearl-500: #94A3B8;
+
+  /* Midnight — Deep, rich dark mode obsidian */
+  --color-midnight-500: #71717A;
+  --color-midnight-600: #52525B;
+  --color-midnight-700: #3F3F46;
+  --color-midnight-800: #27272A;
+  --color-midnight-900: #18181B; /* Elevated surfaces */
+  --color-midnight-950: #09090B; /* Deep background */
+
+  /* Gold — Luxurious primary accent */
+  --color-azure-400: #FBBF24;
+  --color-azure-500: #F59E0B;
+  --color-azure-600: #D97706;
+
+  /* Champagne — Secondary glowing accent */
+  --color-amethyst-400: #FDE68A;
+  --color-amethyst-500: #FCD34D;
+  --color-amethyst-600: #F59E0B;
+
+  /* Emerald for online status */
+  --color-emerald-400: #34D399;
+  --color-emerald-500: #10B981;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* ══════════════════════════════════════
+   Scrollbar — Sleek & minimal
+   ══════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.5); }
+.dark ::-webkit-scrollbar-thumb { background: rgba(113, 113, 122, 0.3); }
+.dark ::-webkit-scrollbar-thumb:hover { background: rgba(113, 113, 122, 0.5); }
+
+/* ══════════════════════════════════════
+   Glassmorphism — Bento Box Panels
+   ══════════════════════════════════════ */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+.dark .glass-panel {
+  background: rgba(24, 24, 27, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ══════════════════════════════════════
+   Gradient text & Backgrounds
+   ══════════════════════════════════════ */
+.gradient-text-azure {
+  background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-bg-azure {
+  background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+/* ══════════════════════════════════════
+   Animations
+   ══════════════════════════════════════ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.02); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 10s ease-in-out infinite; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.4), 0 0 50px rgba(252, 211, 77, 0.2); }
+}
+.animate-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@keyframes reveal {
+  from { filter: blur(12px); opacity: 0.5; }
+  to { filter: blur(0px); opacity: 1; }
+}
+.animate-reveal { animation: reveal 0.5s ease-out forwards; }
+
+/* ══════════════════════════════════════
+   Whisper message effect
+   ══════════════════════════════════════ */
+.whisper-blur {
+  filter: blur(6px);
+  transition: filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  user-select: none;
+  cursor: pointer;
+}
+.whisper-blur:hover,
+.whisper-blur.revealed {
+  filter: blur(0px);
+  user-select: auto;
+}
+
+/* ══════════════════════════════════════
+   Mood bubble gradients (V2)
+   ══════════════════════════════════════ */
+.mood-happy { box-shadow: 0 0 20px rgba(250, 204, 21, 0.15); border-color: rgba(250, 204, 21, 0.4) !important; }
+.mood-love { box-shadow: 0 0 20px rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.4) !important; }
+.mood-sad { box-shadow: 0 0 20px rgba(96, 165, 250, 0.15); border-color: rgba(96, 165, 250, 0.4) !important; }
+.mood-fire { box-shadow: 0 0 20px rgba(251, 146, 60, 0.2); border-color: rgba(251, 146, 60, 0.4) !important; }
+.mood-chill { box-shadow: 0 0 20px rgba(52, 211, 153, 0.15); border-color: rgba(52, 211, 153, 0.4) !important; }
+.mood-think { box-shadow: 0 0 20px rgba(168, 162, 158, 0.15); border-color: rgba(168, 162, 158, 0.4) !important; }
+
+/* ══════════════════════════════════════
+   Base Styles
+   ══════════════════════════════════════ */
+.dark { color-scheme: dark; }
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.3s ease;
+  letter-spacing: -0.01em;
+}
+
+/* Smooth theme transitions */
+*, *::before, *::after {
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.animate-spin, .animate-pulse, .animate-slide-up, .animate-reveal,
+input, textarea, [contenteditable] {
+  transition: none !important;
+}
+input:focus, textarea:focus {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
+}

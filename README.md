@@ -43,51 +43,8 @@ LinkUp is a full-stack, real-time messaging platform built with the MERN stack (
 - Cloudinary (Image Storage)
 - Bcrypt.js (Password Hashing)
 
-## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB Atlas cluster or local MongoDB instance
-- Cloudinary Account
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/LinkUp.git
-cd "LinkUp"
-```
-
-### 2. Setup the Backend
-```bash
-cd backend
-npm install
-```
-Create a `.env` file in the `backend` directory and add the following variables:
-```env
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret_key
-PORT=5001
-NODE_ENV=development
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-CLIENT_URL=http://localhost:5173
-```
-Start the backend server:
-```bash
-npm run dev
-```
-
-### 3. Setup the Frontend
-```bash
-cd frontend
-npm install
-```
-Start the frontend development server:
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:5173`.
 
 ## 🌐 Deployment
 LinkUp is completely deployment-ready.
@@ -95,5 +52,4 @@ LinkUp is completely deployment-ready.
 - **Backend** can be deployed to Render, Railway, or Heroku.
 Make sure to configure the `BASE_URL` in the frontend `socket.js` and `axios.js` to point to your deployed backend URL.
 
-## 📄 License
-This project is licensed under the MIT License.
+

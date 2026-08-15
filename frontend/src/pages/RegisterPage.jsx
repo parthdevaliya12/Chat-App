@@ -81,50 +81,68 @@ const RegisterPage = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <motion.div initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-                <label className="block text-xs font-bold text-midnight-600 dark:text-midnight-400 mb-2 uppercase tracking-wide">Full Name</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <HiOutlineUser className="text-midnight-400 group-focus-within:text-azure-500 text-lg transition-colors duration-200" />
-                  </div>
                   <input
                     type="text"
+                    id="fullName"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-pearl-200 dark:border-midnight-700/50 bg-pearl-50/50 dark:bg-midnight-900/50 focus:bg-white dark:focus:bg-midnight-800 focus:outline-none focus:border-azure-500 focus:ring-1 focus:ring-azure-500 transition-all text-midnight-900 dark:text-pearl-50 placeholder-midnight-400/50 font-medium"
+                    className="peer w-full pl-11 pr-4 pt-5 pb-2 rounded-2xl border border-pearl-200 dark:border-midnight-700/50 bg-pearl-50/50 dark:bg-midnight-900/50 focus:bg-white dark:focus:bg-midnight-800 focus:outline-none focus:border-azure-500 focus:ring-1 focus:ring-azure-500 transition-all text-midnight-900 dark:text-pearl-50 font-medium placeholder-transparent"
                     placeholder="John Doe"
                   />
+                  <label 
+                    htmlFor="fullName"
+                    className="absolute left-11 top-1.5 text-[10px] uppercase font-bold text-midnight-400 dark:text-midnight-500 transition-all peer-placeholder-shown:text-[15px] peer-placeholder-shown:top-3.5 peer-placeholder-shown:normal-case peer-focus:text-[10px] peer-focus:top-1.5 peer-focus:uppercase peer-focus:text-azure-500 cursor-text select-none pointer-events-none"
+                  >
+                    Full Name
+                  </label>
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <HiOutlineUser className="text-midnight-400 peer-focus:text-azure-500 text-lg transition-colors duration-200" />
+                  </div>
                 </div>
               </motion.div>
 
               <motion.div initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                <label className="block text-xs font-bold text-midnight-600 dark:text-midnight-400 mb-2 uppercase tracking-wide">Email</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <HiOutlineEnvelope className="text-midnight-400 group-focus-within:text-azure-500 text-lg transition-colors duration-200" />
-                  </div>
                   <input
                     type="email"
+                    id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-pearl-200 dark:border-midnight-700/50 bg-pearl-50/50 dark:bg-midnight-900/50 focus:bg-white dark:focus:bg-midnight-800 focus:outline-none focus:border-azure-500 focus:ring-1 focus:ring-azure-500 transition-all text-midnight-900 dark:text-pearl-50 placeholder-midnight-400/50 font-medium"
+                    className="peer w-full pl-11 pr-4 pt-5 pb-2 rounded-2xl border border-pearl-200 dark:border-midnight-700/50 bg-pearl-50/50 dark:bg-midnight-900/50 focus:bg-white dark:focus:bg-midnight-800 focus:outline-none focus:border-azure-500 focus:ring-1 focus:ring-azure-500 transition-all text-midnight-900 dark:text-pearl-50 font-medium placeholder-transparent"
                     placeholder="you@example.com"
                   />
+                  <label 
+                    htmlFor="email"
+                    className="absolute left-11 top-1.5 text-[10px] uppercase font-bold text-midnight-400 dark:text-midnight-500 transition-all peer-placeholder-shown:text-[15px] peer-placeholder-shown:top-3.5 peer-placeholder-shown:normal-case peer-focus:text-[10px] peer-focus:top-1.5 peer-focus:uppercase peer-focus:text-azure-500 cursor-text select-none pointer-events-none"
+                  >
+                    Email
+                  </label>
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <HiOutlineEnvelope className="text-midnight-400 peer-focus:text-azure-500 text-lg transition-colors duration-200" />
+                  </div>
                 </div>
               </motion.div>
 
               <motion.div initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
-                <label className="block text-xs font-bold text-midnight-600 dark:text-midnight-400 mb-2 uppercase tracking-wide">Password</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <HiOutlineLockClosed className="text-midnight-400 group-focus-within:text-azure-500 text-lg transition-colors duration-200" />
-                  </div>
                   <input
                     type={showPassword ? 'text' : 'password'}
+                    id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-11 pr-12 py-3.5 rounded-2xl border border-pearl-200 dark:border-midnight-700/50 bg-pearl-50/50 dark:bg-midnight-900/50 focus:bg-white dark:focus:bg-midnight-800 focus:outline-none focus:border-azure-500 focus:ring-1 focus:ring-azure-500 transition-all text-midnight-900 dark:text-pearl-50 placeholder-midnight-400/50 font-medium"
+                    className="peer w-full pl-11 pr-12 pt-5 pb-2 rounded-2xl border border-pearl-200 dark:border-midnight-700/50 bg-pearl-50/50 dark:bg-midnight-900/50 focus:bg-white dark:focus:bg-midnight-800 focus:outline-none focus:border-azure-500 focus:ring-1 focus:ring-azure-500 transition-all text-midnight-900 dark:text-pearl-50 font-medium placeholder-transparent"
                     placeholder="Enter strong password"
                   />
+                  <label 
+                    htmlFor="password"
+                    className="absolute left-11 top-1.5 text-[10px] uppercase font-bold text-midnight-400 dark:text-midnight-500 transition-all peer-placeholder-shown:text-[15px] peer-placeholder-shown:top-3.5 peer-placeholder-shown:normal-case peer-focus:text-[10px] peer-focus:top-1.5 peer-focus:uppercase peer-focus:text-azure-500 cursor-text select-none pointer-events-none"
+                  >
+                    Password
+                  </label>
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <HiOutlineLockClosed className="text-midnight-400 peer-focus:text-azure-500 text-lg transition-colors duration-200" />
+                  </div>
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}

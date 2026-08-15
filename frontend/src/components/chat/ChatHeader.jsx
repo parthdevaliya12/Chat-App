@@ -38,15 +38,6 @@ export default function ChatHeader() {
           </p>
         </div>
       </div>
-      
-      <div className="flex items-center gap-2">
-        <button className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all">
-          <HiOutlinePhone className="w-5 h-5" />
-        </button>
-        <button className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all">
-          <HiOutlineVideoCamera className="w-5 h-5" />
-        </button>
-      </div>
     </motion.div>
   );
 }

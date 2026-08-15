@@ -45,14 +45,14 @@ export default function ChatHeader() {
         <button 
           onClick={() => getMessages(selectedUser._id)}
           disabled={isMessagesLoading}
-          className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all disabled:opacity-50"
+          className="p-2.5 rounded-xl text-midnight-600 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all disabled:opacity-50"
           title="Refresh Messages"
         >
           <HiOutlineArrowPath className={`w-5 h-5 ${isMessagesLoading ? 'animate-spin' : ''}`} />
         </button>
         <button 
           onClick={() => setShowInfo(true)}
-          className="p-2.5 rounded-xl text-midnight-400 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all"
+          className="p-2.5 rounded-xl text-midnight-600 dark:text-midnight-500 hover:bg-pearl-200 dark:hover:bg-midnight-800 hover:text-azure-500 transition-all"
           title="User Info"
         >
           <HiOutlineInformationCircle className="w-5 h-5" />

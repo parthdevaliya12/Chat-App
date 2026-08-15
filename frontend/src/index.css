@@ -37,7 +37,7 @@
   --color-emerald-400: #34D399;
   --color-emerald-500: #10B981;
 
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
 /* ══════════════════════════════════════
@@ -142,7 +142,7 @@
 .dark { color-scheme: dark; }
 
 body {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.4s ease, color 0.3s ease;

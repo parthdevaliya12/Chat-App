@@ -18,6 +18,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+app.set("trust proxy", 1);
+
 app.use(cors({
   origin: ['http://localhost:5173', 'https://linkup-livechat.vercel.app'],
   credentials: true

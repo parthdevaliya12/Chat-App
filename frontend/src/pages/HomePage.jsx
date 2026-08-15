@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import Sidebar from '../components/sidebar/Sidebar';
 import ChatContainer from '../components/chat/ChatContainer';
@@ -6,7 +7,12 @@ import EmptyChat from '../components/chat/EmptyChat';
 import { useChatStore } from '../store/useChatStore';
 
 const HomePage = () => {
-  const { selectedUser } = useChatStore();
+  const { selectedUser, subscribeToMessages, unsubscribeFromMessages } = useChatStore();
+
+  useEffect(() => {
+    subscribeToMessages();
+    return () => unsubscribeFromMessages();
+  }, [subscribeToMessages, unsubscribeFromMessages]);
 
   return (
     <motion.div 

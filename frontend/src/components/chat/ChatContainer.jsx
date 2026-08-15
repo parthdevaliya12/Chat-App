@@ -9,8 +9,7 @@ import TypingIndicator from './TypingIndicator';
 export default function ChatContainer() {
   const {
     selectedUser, messages, getMessages,
-    isMessagesLoading, subscribeToMessages,
-    unsubscribeFromMessages, typingUsers
+    isMessagesLoading, typingUsers
   } = useChatStore();
   const { authUser } = useAuthStore();
   const endRef = useRef(null);
@@ -18,10 +17,8 @@ export default function ChatContainer() {
   useEffect(() => {
     if (selectedUser?._id) {
       getMessages(selectedUser._id);
-      subscribeToMessages();
     }
-    return () => unsubscribeFromMessages();
-  }, [selectedUser?._id]);
+  }, [selectedUser?._id, getMessages]);
 
   useEffect(() => {
     if (endRef.current) endRef.current.scrollIntoView({ behavior: 'smooth' });

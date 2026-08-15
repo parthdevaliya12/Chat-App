@@ -2,16 +2,9 @@ import User from '../models/User.model.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const generateToken = (userId, res) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+const generateToken = (userId) => {
+  return jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: '7d',
-  });
-
-  res.cookie('jwt', token, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    httpOnly: true,
-    sameSite: 'none',
-    secure: true,
   });
 };
 
@@ -49,12 +42,12 @@ export const register = async (req, res, next) => {
 
     await newUser.save();
 
-    generateToken(newUser._id, res);
+    const token = generateToken(newUser._id);
 
     const userToReturn = newUser.toObject();
     delete userToReturn.password;
 
-    res.status(201).json(userToReturn);
+    res.status(201).json({ ...userToReturn, token });
   } catch (error) {
     next(error);
   }
@@ -80,12 +73,12 @@ export const login = async (req, res, next) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    generateToken(user._id, res);
+    const token = generateToken(user._id);
 
     const userToReturn = user.toObject();
     delete userToReturn.password;
 
-    res.status(200).json(userToReturn);
+    res.status(200).json({ ...userToReturn, token });
   } catch (error) {
     next(error);
   }
@@ -93,7 +86,6 @@ export const login = async (req, res, next) => {
 
 export const logout = (req, res) => {
   try {
-    res.cookie('jwt', '', { maxAge: 0 });
     res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
     console.error('Error in logout controller', error.message);
@@ -134,9 +126,6 @@ export const deleteAccount = async (req, res, next) => {
     // Optionally: could also delete all their messages here, 
     // but typically messages are left with a "Deleted User" flag.
     await User.findByIdAndDelete(userId);
-
-    // Clear the auth cookie
-    res.cookie('jwt', '', { maxAge: 0 });
     
     res.status(200).json({ message: 'Account deleted successfully' });
   } catch (error) {

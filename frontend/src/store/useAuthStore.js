@@ -29,6 +29,7 @@ export const useAuthStore = create((set, get) => ({
     try {
       set({ isRegistering: true });
       const res = await axiosInstance.post('/auth/register', data);
+      localStorage.setItem('jwt', res.data.token);
       set({ authUser: res.data });
       connectSocket(res.data._id);
       get().subscribeToOnlineUsers();
@@ -44,6 +45,7 @@ export const useAuthStore = create((set, get) => ({
     try {
       set({ isLoggingIn: true });
       const res = await axiosInstance.post('/auth/login', data);
+      localStorage.setItem('jwt', res.data.token);
       set({ authUser: res.data });
       connectSocket(res.data._id);
       get().subscribeToOnlineUsers();
@@ -58,6 +60,7 @@ export const useAuthStore = create((set, get) => ({
   logout: async () => {
     try {
       await axiosInstance.post('/auth/logout');
+      localStorage.removeItem('jwt');
       set({ authUser: null, onlineUsers: [] });
       disconnectSocket();
       toast.success('Logged out successfully');
@@ -92,6 +95,7 @@ export const useAuthStore = create((set, get) => ({
   deleteAccount: async () => {
     try {
       await axiosInstance.delete('/auth/account');
+      localStorage.removeItem('jwt');
       set({ authUser: null, onlineUsers: [] });
       disconnectSocket();
       toast.success('Account deleted successfully');

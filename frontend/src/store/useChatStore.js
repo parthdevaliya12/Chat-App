@@ -39,7 +39,28 @@ export const useChatStore = create((set, get) => ({
   sendMessage: async (userId, messageData) => {
     try {
       const res = await axiosInstance.post(`/messages/send/${userId}`, messageData);
-      set((state) => ({ messages: [...state.messages, res.data] }));
+      set((state) => {
+        const newMessages = [...state.messages, res.data];
+        
+        const updatedConversations = state.conversations.map(conv => {
+          if (conv.participants.some(p => p._id === userId)) {
+            return {
+              ...conv,
+              lastMessage: {
+                text: res.data.text || (res.data.image ? 'Sent an image' : ''),
+                sender: { _id: res.data.senderId },
+                createdAt: res.data.createdAt,
+              },
+              updatedAt: new Date().toISOString()
+            };
+          }
+          return conv;
+        });
+
+        updatedConversations.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+        return { messages: newMessages, conversations: updatedConversations };
+      });
     } catch (error) {
       toast.error(error.response?.data?.message || 'Error sending message');
     }
@@ -77,9 +98,31 @@ export const useChatStore = create((set, get) => ({
     
     socket.on('newMessage', (newMessage) => {
       const { selectedUser } = get();
-      if (selectedUser && newMessage.senderId === selectedUser._id) {
-        set((state) => ({ messages: [...state.messages, newMessage] }));
-      }
+      const isCurrentlyViewing = selectedUser && newMessage.senderId === selectedUser._id;
+      
+      set((state) => {
+        const updatedConversations = state.conversations.map(conv => {
+          if (conv.participants.some(p => p._id === newMessage.senderId)) {
+            return {
+              ...conv,
+              lastMessage: {
+                text: newMessage.text || (newMessage.image ? 'Sent an image' : ''),
+                sender: { _id: newMessage.senderId },
+                createdAt: newMessage.createdAt,
+              },
+              updatedAt: new Date().toISOString()
+            };
+          }
+          return conv;
+        });
+
+        updatedConversations.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+        return {
+          messages: isCurrentlyViewing ? [...state.messages, newMessage] : state.messages,
+          conversations: updatedConversations
+        };
+      });
     });
 
     socket.on('typing', ({ senderId }) => {
